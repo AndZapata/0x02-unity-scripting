@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +8,15 @@ public class PlayerController : MonoBehaviour
     private int score = 0;
     public int health = 5;
 
+    public void Update()
+    {
+        if (health == 0)
+            {
+                Debug.Log("Game Over!");
+                Destroy(this.gameObject);
+                SceneManager.LoadScene(0);
+            }
+    }
     public void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.W))
@@ -31,11 +41,8 @@ public class PlayerController : MonoBehaviour
         {
             health = health - 1;
             Debug.Log("Health: " + health);
-            if (health == 0)
-            {
-                Debug.Log("Game Over!");
-                Destroy(this.gameObject);
-            }
         }
+        if (other.tag == "Goal")
+            Debug.Log("You win!");
     }
 }
